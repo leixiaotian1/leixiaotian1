@@ -1,24 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: alert-manager
+  name: prometheus-monitor
   namespace: monitoring
+  labels:
+    app: prometheus-monitor
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
-      app: alert-manager
+      app: prometheus-monitor
   template:
     metadata:
       labels:
-        app: alert-manager
+        app: prometheus-monitor
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
     spec:
       containers:
-      - name: alert-manager
-        image: alert-manager:latest
-        imagePullPolicy: IfNotPresent
+      - name: monitor
+        image: prometheus-monitor:1.0.0
         ports:
         - containerPort: 8080
+        env:
+        - name: PROMETHEUS_URL
+          value: "http://prometheus-operated:9090"
         resources:
           requests:
             cpu: "100m"
@@ -28,13 +35,13 @@ spec:
             memory: "512Mi"
         livenessProbe:
           httpGet:
-            path: /health
+            path: /healthz
             port: 8080
           initialDelaySeconds: 30
           periodSeconds: 10
         readinessProbe:
           httpGet:
-            path: /health
+            path: /ready
             port: 8080
           initialDelaySeconds: 5
           periodSeconds: 5
@@ -42,12 +49,33 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: alert-manager
+  name: prometheus-monitor
   namespace: monitoring
+  labels:
+    app: prometheus-monitor
 spec:
-  selector:
-    app: alert-manager
   ports:
   - port: 8080
     targetPort: 8080
-  type: ClusterIP
+    protocol: TCP
+  selector:
+    app: prometheus-monitor
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: prometheus-monitor
+  namespace: monitoring
+  labels:
+    release: prometheus-operator
+spec:
+  selector:
+    matchLabels:
+      app: prometheus-monitor
+  endpoints:
+  - port: "metrics"
+    interval: 30s
+    path: /metrics
+  namespaceSelector:
+    matchNames:
+    - monitoring

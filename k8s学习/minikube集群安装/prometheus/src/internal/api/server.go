@@ -1,43 +1,33 @@
 package api
 
 import (
+	"context"
 	"net/http"
 
-	"monitoring/internal/k8s"
+	"monitoring/internal/metrics"
 )
 
 type Server struct {
-	k8sClient *k8s.Client
+	metricsCollector *metrics.Collector
 }
 
-func NewServer(k8sClient *k8s.Client) *Server {
+func NewServer(metricsCollector *metrics.Collector) *Server {
 	return &Server{
-		k8sClient: k8sClient,
+		metricsCollector: metricsCollector,
 	}
 }
 
-func (s *Server) Router() *http.ServeMux {
-	mux := http.NewServeMux()
-	mux.HandleFunc("/pods", s.listPods)
-	mux.HandleFunc("/alert", s.createAlert)
-	mux.HandleFunc("/alerts", s.getActiveAlerts)
-	mux.HandleFunc("/health", s.healthCheck)
-	return mux
+func (s *Server) Start(addr string) error {
+	http.HandleFunc("/metrics", s.handleMetrics)
+	return http.ListenAndServe(addr, nil)
 }
 
-func (s *Server) listPods(w http.ResponseWriter, r *http.Request) {
-	// TODO: Implement
+func (s *Server) Shutdown(ctx context.Context) error {
+	// TODO: 实现优雅关闭
+	return nil
 }
 
-func (s *Server) createAlert(w http.ResponseWriter, r *http.Request) {
-	// TODO: Implement
-}
-
-func (s *Server) getActiveAlerts(w http.ResponseWriter, r *http.Request) {
-	// TODO: Implement
-}
-
-func (s *Server) healthCheck(w http.ResponseWriter, r *http.Request) {
+func (s *Server) handleMetrics(w http.ResponseWriter, r *http.Request) {
+	// TODO: 实现指标处理
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("OK"))
 }

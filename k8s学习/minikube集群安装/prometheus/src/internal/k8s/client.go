@@ -1,23 +1,24 @@
 package k8s
 
 import (
-	"context"
-
-	monitoringclient "github.com/prometheus-operator/prometheus-operator/pkg/client/versioned"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
+	"k8s.io/client-go/tools/clientcmd"
 )
 
 type Client struct {
-	Clientset        *kubernetes.Clientset
-	MonitoringClient *monitoringclient.Clientset
+	clientset *kubernetes.Clientset
 }
 
 func NewClient() (*Client, error) {
 	config, err := rest.InClusterConfig()
 	if err != nil {
-		return nil, err
+		// 如果不在集群内运行，使用kubeconfig
+		kubeconfig := clientcmd.NewDefaultClientConfigLoadingRules().GetDefaultFilename()
+		config, err = clientcmd.BuildConfigFromFlags("", kubeconfig)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	clientset, err := kubernetes.NewForConfig(config)
@@ -25,37 +26,22 @@ func NewClient() (*Client, error) {
 		return nil, err
 	}
 
-	monClient, err := monitoringclient.NewForConfig(config)
-	if err != nil {
-		return nil, err
-	}
-
 	return &Client{
-		Clientset:        clientset,
-		MonitoringClient: monClient,
+		clientset: clientset,
 	}, nil
 }
 
-func (c *Client) ListPods(namespace string) ([]PodInfo, error) {
-	pods, err := c.Clientset.CoreV1().Pods(namespace).List(context.TODO(), metav1.ListOptions{})
-	if err != nil {
-		return nil, err
-	}
-
-	var podList []PodInfo
-	for _, pod := range pods.Items {
-		podList = append(podList, PodInfo{
-			Name:      pod.Name,
-			Namespace: pod.Namespace,
-			Status:    string(pod.Status.Phase),
-		})
-	}
-
-	return podList, nil
+func (c *Client) GetClusterStatus() (string, error) {
+	// TODO: 实现集群状态查询
+	return "Healthy", nil
 }
 
-type PodInfo struct {
-	Name      string
-	Namespace string
-	Status    string
+func (c *Client) GetNodeMetrics() (map[string]interface{}, error) {
+	// TODO: 实现节点指标查询
+	return make(map[string]interface{}), nil
+}
+
+func (c *Client) GetPodMetrics() (map[string]interface{}, error) {
+	// TODO: 实现Pod指标查询
+	return make(map[string]interface{}), nil
 }
