@@ -1,0 +1,30 @@
+{
+  "name": "desktop-master",
+  "version": "1.0.0",
+  "description": "A system monitoring tool similar to LuDaShi",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^23.0.0",
+    "systeminformation": "^5.11.23"
+  },
+  "devDependencies": {
+    "electron-builder": "^23.6.0"
+  },
+  "build": {
+    "productName": "桌面大师",
+    "appId": "com.example.desktopmaster",
+    "directories": {
+      "output": "build"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    }
+  }
+}
