@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: hellok8s-monitor
+  labels:
+    app: hellok8s
+spec:
+  selector:
+    matchLabels:
+      app: hellok8s  # 替换为您要监控的 Pod 的标签
+  endpoints:
+    - port: "3000"  # 替换为您的服务暴露指标的端口名称
