@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.2 (Python 3.10.6 on win32)" generated="2025-01-15T22:22:39.972769" rpa="false" schemaversion="5">
+<suite id="s1" name="Test" source="C:\Users\Administrator\Documents\GitHub\leixiaotian1\k8s学习\test.robot">
+<test id="s1-t1" name="Login User with Password" line="7">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-01-15T22:22:39.991350" level="INFO">${params} = {'keya': '1', 'keyb': "'xun'"}</msg>
+<var>${params}</var>
+<arg>keya=1</arg>
+<arg>keyb='xun'</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-01-15T22:22:39.991350" elapsed="0.000000"/>
+</kw>
+<kw name="编辑虚拟机">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-01-15T22:22:39.992349" level="INFO">${vm_dict} = {'keya': 'test1', 'keyb': 'tew', 'keyc': 'sfs'}</msg>
+<var>${vm_dict}</var>
+<arg>keya=test1</arg>
+<arg>keyb=tew</arg>
+<arg>keyc=sfs</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-01-15T22:22:39.991350" elapsed="0.000999"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>params:${params}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-01-15T22:22:39.992349" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${params} == {}</arg>
+<arg>Fail</arg>
+<arg>"Params dictionary is empty"</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-01-15T22:22:39.992349" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-01-15T22:22:39.992349" level="INFO">${params_type} = dict</msg>
+<var>${params_type}</var>
+<arg>str(type(${params})).split("'")[1]</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-01-15T22:22:39.992349" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Type of params: ${params_type}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-01-15T22:22:39.992349" elapsed="0.001001"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2025-01-15T22:22:39.993350" level="INFO">${key_list} = ['keya', 'keyb', 'keyc']</msg>
+<var>${key_list}</var>
+<arg>keya</arg>
+<arg>keyb</arg>
+<arg>keyc</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2025-01-15T22:22:39.993350" elapsed="0.000000"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Set Variable If" owner="BuiltIn">
+<msg time="2025-01-15T22:22:39.993350" level="INFO">${value} = 1</msg>
+<var>${value}</var>
+<arg>'${key}' in ${params}</arg>
+<arg>${params}[${key}]</arg>
+<arg>${vm_dict}[${key}]</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="PASS" start="2025-01-15T22:22:39.993350" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-01-15T22:22:39.993350" level="INFO">${value_type} = &lt;class 'int'&gt;</msg>
+<var>${value_type}</var>
+<arg>str(type(${value}))</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-01-15T22:22:39.993350" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Key: ${key}, Value: ${value}, Type: ${value_type}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-01-15T22:22:39.993350" elapsed="0.001001"/>
+</kw>
+<var name="${key}">keya</var>
+<status status="PASS" start="2025-01-15T22:22:39.993350" elapsed="0.001001"/>
+</iter>
+<iter>
+<kw name="Set Variable If" owner="BuiltIn">
+<msg time="2025-01-15T22:22:39.994351" level="INFO">${value} = 'xun'</msg>
+<var>${value}</var>
+<arg>'${key}' in ${params}</arg>
+<arg>${params}[${key}]</arg>
+<arg>${vm_dict}[${key}]</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="PASS" start="2025-01-15T22:22:39.994351" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-01-15T22:22:39.994351" level="INFO">${value_type} = &lt;class 'str'&gt;</msg>
+<var>${value_type}</var>
+<arg>str(type(${value}))</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-01-15T22:22:39.994351" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Key: ${key}, Value: ${value}, Type: ${value_type}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-01-15T22:22:39.994351" elapsed="0.001000"/>
+</kw>
+<var name="${key}">keyb</var>
+<status status="PASS" start="2025-01-15T22:22:39.994351" elapsed="0.001000"/>
+</iter>
+<iter>
+<kw name="Set Variable If" owner="BuiltIn">
+<msg time="2025-01-15T22:22:39.995351" level="INFO">${value} = sfs</msg>
+<var>${value}</var>
+<arg>'${key}' in ${params}</arg>
+<arg>${params}[${key}]</arg>
+<arg>${vm_dict}[${key}]</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="PASS" start="2025-01-15T22:22:39.995351" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-01-15T22:22:39.997352" level="FAIL">Evaluating expression 'str(type(sfs))' failed: NameError: name 'sfs' is not defined nor importable as module</msg>
+<var>${value_type}</var>
+<arg>str(type(${value}))</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="FAIL" start="2025-01-15T22:22:39.995351" elapsed="0.002001">Evaluating expression 'str(type(sfs))' failed: NameError: name 'sfs' is not defined nor importable as module</status>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Key: ${key}, Value: ${value}, Type: ${value_type}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-01-15T22:22:39.997352" elapsed="0.000000"/>
+</kw>
+<var name="${key}">keyc</var>
+<status status="FAIL" start="2025-01-15T22:22:39.995351" elapsed="0.002001">Evaluating expression 'str(type(sfs))' failed: NameError: name 'sfs' is not defined nor importable as module</status>
+</iter>
+<var>${key}</var>
+<value>@{key_list}</value>
+<status status="FAIL" start="2025-01-15T22:22:39.993350" elapsed="0.004002">Evaluating expression 'str(type(sfs))' failed: NameError: name 'sfs' is not defined nor importable as module</status>
+</for>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>newvm_dict:${vm_dict}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-01-15T22:22:39.997352" elapsed="0.000000"/>
+</kw>
+<arg>${params}</arg>
+<status status="FAIL" start="2025-01-15T22:22:39.991350" elapsed="0.006002">Evaluating expression 'str(type(sfs))' failed: NameError: name 'sfs' is not defined nor importable as module</status>
+</kw>
+<tag>positive</tag>
+<status status="FAIL" start="2025-01-15T22:22:39.990349" elapsed="0.008001">Evaluating expression 'str(type(sfs))' failed: NameError: name 'sfs' is not defined nor importable as module</status>
+</test>
+<doc>A test suite for valid login.</doc>
+<status status="FAIL" start="2025-01-15T22:22:39.974769" elapsed="0.023581"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="1" skip="0">positive</stat>
+</tag>
+<suite>
+<stat name="Test" id="s1" pass="0" fail="1" skip="0">Test</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

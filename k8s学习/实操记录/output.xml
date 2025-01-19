@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.2 (Python 3.10.6 on win32)" generated="2025-01-15T21:51:16.234781" rpa="false" schemaversion="5">
+<suite id="s1" name="Test" source="C:\Users\Administrator\Documents\GitHub\leixiaotian1\k8s学习\实操记录\test.robot">
+<test id="s1-t1" name="Login User with Password" line="6">
+<kw name="编辑虚拟机">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-01-15T21:51:16.252783" level="INFO">${vm_dict} = {'keya': 'test1', 'keyb': 'tew', 'keyc': 'sfs'}</msg>
+<var>${vm_dict}</var>
+<arg>keya=test1</arg>
+<arg>keyb=tew</arg>
+<arg>keyc=sfs</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-01-15T21:51:16.252783" elapsed="0.000998"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>params:${params}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-01-15T21:51:16.253781" elapsed="0.000000"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2025-01-15T21:51:16.253781" level="INFO">${key_list} = ['keya', 'keyb', 'keyc']</msg>
+<var>${key_list}</var>
+<arg>keya</arg>
+<arg>keyb</arg>
+<arg>keyc</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2025-01-15T21:51:16.253781" elapsed="0.000000"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Set Variable If" owner="BuiltIn">
+<msg time="2025-01-15T21:51:16.254783" level="FAIL">Resolving variable '${params.get(keya, '')}' failed: AttributeError: 'str' object has no attribute 'get'</msg>
+<var>${value}</var>
+<arg>'${key}' in '${params}'</arg>
+<arg>${params.get(${key}, '')}</arg>
+<arg>ELSE</arg>
+<arg>${vm_dict.get(${key}, '')}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="FAIL" start="2025-01-15T21:51:16.253781" elapsed="0.001002">Resolving variable '${params.get(keya, '')}' failed: AttributeError: 'str' object has no attribute 'get'</status>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Key: ${key}, Value: ${value}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-01-15T21:51:16.254783" elapsed="0.000000"/>
+</kw>
+<var name="${key}">keya</var>
+<status status="FAIL" start="2025-01-15T21:51:16.253781" elapsed="0.001002">Resolving variable '${params.get(keya, '')}' failed: AttributeError: 'str' object has no attribute 'get'</status>
+</iter>
+<var>${key}</var>
+<value>@{key_list}</value>
+<status status="FAIL" start="2025-01-15T21:51:16.253781" elapsed="0.001002">Resolving variable '${params.get(keya, '')}' failed: AttributeError: 'str' object has no attribute 'get'</status>
+</for>
+<arg>keya=1.1.1.1</arg>
+<status status="FAIL" start="2025-01-15T21:51:16.252783" elapsed="0.002000">Resolving variable '${params.get(keya, '')}' failed: AttributeError: 'str' object has no attribute 'get'</status>
+</kw>
+<tag>positive</tag>
+<status status="FAIL" start="2025-01-15T21:51:16.251781" elapsed="0.003002">Resolving variable '${params.get(keya, '')}' failed: AttributeError: 'str' object has no attribute 'get'</status>
+</test>
+<doc>A test suite for valid login.</doc>
+<status status="FAIL" start="2025-01-15T21:51:16.235781" elapsed="0.020001"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="1" skip="0">positive</stat>
+</tag>
+<suite>
+<stat name="Test" id="s1" pass="0" fail="1" skip="0">Test</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
